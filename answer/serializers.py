@@ -8,14 +8,13 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-        # fields = ('text', 'review')
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # fields = "__all__"
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
+        #write_only_fields = ('password',)
         extra_kwargs = {
             'password': {
                 'write_only': True
