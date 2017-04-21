@@ -1,5 +1,6 @@
 django == 1.11
-djangorestframework
+requests
+djangorestframework >= 3.5
 django-oauth-toolkit
 django-cors-middleware
 psycopg2

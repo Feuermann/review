@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from answer.views import CommentViewSet, ReviewViewSet, UserViewSet, SignUp
+from answer.views import CommentViewSet, ReviewViewSet, UserViewSet, SignUp, SignIn
 from rest_framework import routers
 
 
@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^sign_up/$', SignUp.as_view(), name='sign_up'),
+    url(r'^sign_in/$', SignIn.as_view(), name='sign_in'),
 ]

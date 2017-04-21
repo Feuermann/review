@@ -1,12 +1,13 @@
-#Reviews Rest API with oauth2 authentication
+# Reviews Rest API with oauth2 authentication
 
 Rest backend for manage review and comment to him.
 Used oauth2 authentication, for access use http client (curl, http)
 
-# Requirements
+## Requirements
 
 python >= 3.5
 
+## Installation
 clone this project with
 ```shell
     git clone https://github.com/Feuermann/review.git
@@ -37,3 +38,7 @@ next you need apply migrations to database, run:
     python manage.py migrate
 ```
 where `manage.py` - manage file in project dir or path to this file
+
+and next run project with any web server
+ 
+## Usage
