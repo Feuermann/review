@@ -133,5 +133,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.ext.rest_framework.OAuth2Authentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'PAGE_SIZE': 10
+}
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
 }
