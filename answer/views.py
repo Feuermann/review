@@ -29,7 +29,7 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
 
     def destroy(self, request, *args, **kwargs):
-        if not User.objects.get(pk=kwargs.get('pk')).is_active :
+        if not User.objects.get(pk=kwargs.get('pk')).is_active:
             message = {'detail': 'User has been deleted.'}
             return response.Response(message, status=status.HTTP_400_BAD_REQUEST)
         instance = self.get_object()
