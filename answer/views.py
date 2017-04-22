@@ -1,34 +1,39 @@
-import json
 import requests
-from django.shortcuts import render
 from django.db.models import Prefetch
 from django.db.models.signals import post_save
-from rest_framework import status, response
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.dispatch import receiver
+from rest_framework import status, response
 from rest_framework import viewsets, generics, permissions
 from oauth2_provider.ext.rest_framework import TokenHasReadWriteScope
-from django.dispatch import receiver
 from oauth2_provider.models import Application
 
-from .models import Review, Comment
-from .serializers import ReviewSerializer, CommentSerializer, UserSerializer, SignUpSerializer
+from answer.models import Review, Comment
+from answer.serializers import ReviewSerializer, CommentSerializer, UserSerializer, SignUpSerializer
 from answer.permisions import IsAuthenticatedOrCreate
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
+    """Provides functionality to view, add, update and delete reviews,
+    for list query, add serialized comment for each entry.
+    """
+
     queryset = Review.objects.prefetch_related('comment_set')
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
+    """Provides functionality to view, add, update and delete comment"""
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """Provides functionality to view, add, update and delete user"""
+
     queryset = User.objects.exclude(is_active=False)
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
@@ -47,6 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class SignUp(generics.CreateAPIView):
+
     queryset = User.objects.all()
     serializer_class = SignUpSerializer
     permission_classes = [IsAuthenticatedOrCreate, ]
@@ -60,6 +66,8 @@ class SignUp(generics.CreateAPIView):
 
 
 class SignIn(generics.CreateAPIView):
+    """Class provide functionality for login user with username and password after Sign_Up.
+    """
     permission_classes = [IsAuthenticatedOrCreate, ]
 
     def post(self, request, *args, **kwargs):

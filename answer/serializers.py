@@ -14,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
-        #write_only_fields = ('password',)
         extra_kwargs = {
             'password': {
                 'write_only': True
@@ -28,7 +27,6 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
-        # read_only = ('comments',)
 
 
 class SignUpSerializer(serializers.ModelSerializer):
