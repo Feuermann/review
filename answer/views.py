@@ -63,7 +63,8 @@ class SignUp(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         password = make_password(request.data.get('password'))
         serializer.save(password=password)
-        return response.Response(status=status.HTTP_201_CREATED)
+        message = "User has been created."
+        return response.Response(message, status=status.HTTP_201_CREATED)
 
 
 class SignIn(generics.CreateAPIView):
