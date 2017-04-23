@@ -3,6 +3,19 @@
 Rest backend for manage review and comment to him.
 Used oauth2 authentication, for access use http client (curl, http)
 
+[Requirements](#requirements)   <br>
+[Installation](#installation)   <br>
+[Autodeployement](#autodeployement)<br>
+[Manual installation](#manual-installation) <br> 
+[Usage](#usage) <br>
+[Sign Up](#sign-up)<br>
+[Sign In](#sign-in)<br>
+[Review](#review)<br>
+[Create review](#create-review)<br>
+[Create comment](#create-comment)<br>
+[List all review](#list-all-review)<br>
+
+
 ## Requirements
 
 python 
@@ -12,8 +25,51 @@ uWSGI
 virtualenv
 
 ## Installation
+
+### autodeployement
+>For autodeployment you must have installed `ansbile`, if he is not installed run:
+```shell
+  apt-get install ansible
+```
+
+
+For use autodeployment follow next step:
+
+* clone this project to `/var/www` dir with:
+```shell
+    cd /var/www
+    git clone https://github.com/Feuermann/review.git
+```
+You, should grant all important access. 
+
+* At begin run:
+```shell
+    ansible-playbook install.yml
+```
+* Then create database with `reviews` name (if your user haven't permission to create db), and create user (use `postgres` user is a bad idea)
+and write database credentials to `configs/postgres.conf`
+
+* Next run
+```shell
+    ansible-playbook setup.yml
+```
+
+Congrats. Project deployed and configured.
+
+run in project dir
+~~~shell
+    ./run.sh
+~~~
+
+Project work.
+
+### manual installation
+
+For manual installation follow next step:
+
 clone this project to `/var/www` dir with:
 ```shell
+    cd /var/www
     git clone https://github.com/Feuermann/review.git
 ```
 You, should grant all important access. 
@@ -145,3 +201,4 @@ you should send request to `/comment` with review data, as
 
 You can update/delete entries in accordance with request,
 PATCH/DELETE for update/delete entry.
+

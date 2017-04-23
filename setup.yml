@@ -1,0 +1,38 @@
+# You should create database and database user behind this step
+- hosts: localhost
+
+  tasks:
+          
+    - name: help
+      command: ls -la
+
+    - name: migrations
+      django_manage:
+        app_path: /var/www/review/
+        settings: 'review.settings'
+        virtualenv: /var/www/review/venv
+        command: migrate
+
+    - name: collect static files
+      django_manage:
+        app_path: /var/www/review/
+        settings: 'review.settings'
+        virtualenv: /var/www/review/venv
+        command: collectstatic
+
+    - name: Copy nginx config
+      copy:
+        src: /var/www/review/configs/review_nginx.conf
+        dest: /etc/nginx/sites-available/
+
+    - name: Create symlink in nginx
+      file: 
+        src: /etc/nginx/sites-available/review_nginx.conf
+        dest: /etc/nginx/sites-enabled/review_nginx.conf
+        state: link
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes

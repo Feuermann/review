@@ -1,0 +1,45 @@
+- hosts: localhost
+  
+  tasks:
+    - name: install python dev libraries 
+      apt: 
+        name: python3.5-dev
+        state: latest
+   
+    - name: Intall python-pip
+      apt:
+        name: python3-pip
+        state: latest 
+
+    - name: Install libpq
+      apt:
+        name: libpq-dev
+        state: latest
+
+    - name: Install Postgres
+      apt: 
+        name: postgresql
+        state: latest
+
+    - name: Install Postgres contrib
+      apt: 
+        name: postgresql-contrib
+        state: latest
+
+    - name: Install python virtualenv
+      apt:
+        name: virtualenv
+        state: latest
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Create python virtual environment
+      pip: 
+        virtualenv: /var/www/review/venv
+        virtualenv_python: python3.5
+        requirements: /var/www/review/requirements.txt
+
+
