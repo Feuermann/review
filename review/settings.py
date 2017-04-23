@@ -30,7 +30,7 @@ SECRET_KEY = 'w_0^u0a(i6zcl3(0kj)hi1ospwws3$jlv()n-pc&n-6#3k-&!s'
 DEBUG = False
 
 # add your host for this setting
-ALLOWED_HOSTS = ['localhost',]
+ALLOWED_HOSTS = ['localhost', SERVER_URL]
 
 # Application definition
 
