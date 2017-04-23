@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from .utils import read_config_section
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'w_0^u0a(i6zcl3(0kj)hi1ospwws3$jlv()n-pc&n-6#3k-&!s'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,16 +75,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'review.wsgi.application'
 
+TIME_ZONE = 'UTC'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+
 
 
 # Password validation
@@ -106,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -120,12 +114,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -146,4 +139,19 @@ AUTHENTICATION_BACKENDS = (
 OAUTH2_PROVIDER = {
     # this is the list of available scopes
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
+CONFIG_DIR = os.path.join(BASE_DIR, 'configs')
+DATABASE_CONFIG = 'postgres.conf'
+DB_VALUE = read_config_section(os.path.join(CONFIG_DIR, DATABASE_CONFIG), "POSTGRES")
+
+DATABASES = {
+    'default': {
+        'USER': DB_VALUE.get('user', ''),
+        'PASSWORD': DB_VALUE.get('password', ''),
+        'NAME': 'reviews',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': DB_VALUE.get('host', 'localhost'),
+        'PORT': DB_VALUE.get('port', ''),
+    }
 }
