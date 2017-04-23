@@ -61,9 +61,10 @@ run in project dir
     ./run.sh
 ~~~
 
-Project work.
+Project work. [Next](#usage)
 
-### manual installation
+
+### Manual installation
 
 For manual installation follow next step:
 
@@ -197,6 +198,12 @@ you should send request to `/comment` with review data, as
         "created_at":"2017-04-23T12:35:06.043710Z","updated_at":"2017-04-23T12:35:06.043759Z","title":"new review","text":"New review for example","author":1}]}
 ```
 
+result are paginated by 10 entries, for receive next result page run
+
+ ```
+         curl -H 'Authorization: Bearer AV2OPVN6w4m33pYl0VBR0GwOcIV1RK' http://127.0.0.1:8000/review/?page=2
+ ```
+ 
 #### update/delete
 
 You can update/delete entries in accordance with request,

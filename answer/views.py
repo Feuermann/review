@@ -1,5 +1,6 @@
 import requests
 from django.db.models import Prefetch
+from django.conf import settings
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -74,7 +75,7 @@ class SignIn(generics.CreateAPIView):
         data = request.data
         username = data.get('username')
         password = data.get('password')
-        url = 'http://127.0.0.1:8000/o/token/'
+        url = 'http://{}:{}/o/token/'.format(settings.SERVER_URL, settings.SERVER_PORT)
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:

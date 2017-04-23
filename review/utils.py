@@ -11,7 +11,6 @@ def read_config_section(config_path, section):
     if not os.path.exists(config_path):
         raise ValueError('Could not find config file at path %s'.format(config_path))
 
-
     if not os.path.exists(config_path):
         raise ValueError('Could not find config file at path %s' % config_path)
 
